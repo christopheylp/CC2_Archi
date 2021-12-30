@@ -7,7 +7,7 @@ import java.util.Map;
 public interface ProviderRepository {
     void save(Provider provider);
 
-    Provider byId(String providerId);
+    Provider byId(ProviderId providerId);
 
-    Map<String, Provider> findAll();
+    Map<ProviderId, Provider> findAll();
 }

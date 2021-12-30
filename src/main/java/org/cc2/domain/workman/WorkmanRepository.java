@@ -5,7 +5,7 @@ import java.util.Map;
 public interface WorkmanRepository {
     void save(Workman workman);
 
-    Workman byId(String workmanId);
+    Workman byId(WorkmanId workmanId);
 
-    Map<String, Workman> findAll();
+    Map<WorkmanId, Workman> findAll();
 }

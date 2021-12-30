@@ -5,7 +5,7 @@ import java.util.Map;
 public interface ProjectRepository {
     void save(Project project);
 
-    Project byId(String projectId);
+    Project byId(ProjectId projectId);
 
-    Map<String, Project> findAll();
+    Map<ProjectId, Project> findAll();
 }

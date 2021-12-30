@@ -1,5 +1,7 @@
 package org.cc2.domain.provider;
 
+import org.cc2.domain.project.ProjectId;
+
 import java.util.Map;
 
 public final class ProviderService {
@@ -14,11 +16,11 @@ public final class ProviderService {
         System.out.println("The provider "+provider.getId()+" is now registered!");
     }
 
-    public Map<String, Provider> all() {
+    public Map<ProviderId, Provider> all() {
         return this.providerRepository.findAll();
     }
 
-    public Provider byId(String projectId) {
-        return this.providerRepository.byId(projectId);
+    public Provider byId(ProviderId providerId) {
+        return this.providerRepository.byId(providerId);
     }
 }

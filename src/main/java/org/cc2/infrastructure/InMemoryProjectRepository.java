@@ -1,13 +1,14 @@
 package org.cc2.infrastructure;
 
 import org.cc2.domain.project.Project;
+import org.cc2.domain.project.ProjectId;
 import org.cc2.domain.project.ProjectRepository;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class InMemoryProjectRepository implements ProjectRepository {
-    private final Map<String, Project> data = new ConcurrentHashMap<>();
+    private final Map<ProjectId, Project> data = new ConcurrentHashMap<>();
 
     @Override
     public void save(Project project) {
@@ -15,7 +16,7 @@ public final class InMemoryProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public Project byId(String projectId) {
+    public Project byId(ProjectId projectId) {
         final Project project = data.get(projectId);
         if (project == null) {
             assert false;
@@ -25,7 +26,7 @@ public final class InMemoryProjectRepository implements ProjectRepository {
     }
 
     @Override
-    public Map<String, Project> findAll() {
+    public Map<ProjectId, Project> findAll() {
         return data;
     }
 }

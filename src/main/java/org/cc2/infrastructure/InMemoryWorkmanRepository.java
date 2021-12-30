@@ -1,13 +1,14 @@
 package org.cc2.infrastructure;
 
 import org.cc2.domain.workman.Workman;
+import org.cc2.domain.workman.WorkmanId;
 import org.cc2.domain.workman.WorkmanRepository;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryWorkmanRepository  implements WorkmanRepository {
-    private final Map<String, Workman> data = new ConcurrentHashMap<>();
+    private final Map<WorkmanId, Workman> data = new ConcurrentHashMap<>();
 
     @Override
     public void save(Workman workman) {
@@ -15,7 +16,7 @@ public class InMemoryWorkmanRepository  implements WorkmanRepository {
     }
 
     @Override
-    public Workman byId(String workmanId) {
+    public Workman byId(WorkmanId workmanId) {
         final Workman workman = data.get(workmanId);
         if (workman == null) {
             assert false;
@@ -25,7 +26,7 @@ public class InMemoryWorkmanRepository  implements WorkmanRepository {
     }
 
     @Override
-    public Map<String, Workman> findAll() {
+    public Map<WorkmanId, Workman> findAll() {
         return data;
     }
 }

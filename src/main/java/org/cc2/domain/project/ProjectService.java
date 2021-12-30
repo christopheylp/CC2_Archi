@@ -14,11 +14,11 @@ public final class ProjectService {
         System.out.println("The project "+project.getId()+" is now created!");
     }
 
-    public Map<String, Project> all() {
+    public Map<ProjectId, Project> all() {
         return this.projectRepository.findAll();
     }
 
-    public Project byId(String projectId) {
+    public Project byId(ProjectId projectId) {
         return this.projectRepository.byId(projectId);
     }
 

@@ -14,11 +14,11 @@ public final class WorkmanService {
         System.out.println("The workman "+workman.getId()+" is now registered!");
     }
 
-    public Map<String, Workman> all() {
+    public Map<WorkmanId, Workman> all() {
         return this.workmanRepository.findAll();
     }
 
-    public Workman byId(String projectId) {
+    public Workman byId(WorkmanId projectId) {
         return this.workmanRepository.byId(projectId);
     }
 }
