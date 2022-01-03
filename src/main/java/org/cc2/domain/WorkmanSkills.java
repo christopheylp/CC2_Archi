@@ -1,4 +1,4 @@
-package org.cc2.domain.enums;
+package org.cc2.domain;
 
 public enum WorkmanSkills {
     ELECTRICIAN,

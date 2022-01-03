@@ -1,6 +1,4 @@
-package org.cc2.domain.provider;
-
-import org.cc2.domain.project.Project;
+package org.cc2.domain;
 
 import java.util.Objects;
 

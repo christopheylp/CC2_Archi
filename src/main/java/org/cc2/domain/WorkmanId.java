@@ -1,13 +1,13 @@
-package org.cc2.kernel;
+package org.cc2.domain;
 
-import org.cc2.domain.workman.WorkmanId;
+import org.cc2.kernel.ValueObjectId;
 
 import java.util.Objects;
 
-public class Id implements ValueObjectId{
+public final class WorkmanId implements ValueObjectId {
     private final int value;
 
-    public Id(int value) {
+    public WorkmanId(int value) {
         this.value = value;
     }
 
@@ -19,7 +19,7 @@ public class Id implements ValueObjectId{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Id id = (Id) o;
+        WorkmanId id = (WorkmanId) o;
         return value == id.value;
     }
 
@@ -35,8 +35,6 @@ public class Id implements ValueObjectId{
 
     @Override
     public String toString() {
-        return "UserId{" +
-                "value=" + value +
-                '}';
+        return "WorkmanId{"+this.getValue()+"}";
     }
 }

@@ -1,6 +1,4 @@
-package org.cc2.domain.workman;
-
-import org.cc2.domain.enums.WorkmanSkills;
+package org.cc2.domain;
 
 import java.util.ArrayList;
 import java.util.Objects;
