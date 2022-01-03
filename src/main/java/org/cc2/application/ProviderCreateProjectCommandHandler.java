@@ -4,10 +4,11 @@ import org.cc2.domain.Project;
 import org.cc2.domain.ProjectId;
 import org.cc2.domain.ProjectRepository;
 import org.cc2.domain.Provider;
+import org.cc2.kernel.CommandHandler;
 import org.cc2.kernel.Event;
 import org.cc2.kernel.EventDispatcher;
 
-public class ProviderCreateProjectCommandHandler {
+public class ProviderCreateProjectCommandHandler implements CommandHandler<ProviderCreateProject,ProjectId> {
     private final ProjectRepository projectRepository;
     private final EventDispatcher<Event> eventEventDispatcher;
 

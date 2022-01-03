@@ -1,12 +1,13 @@
 package org.cc2.application;
 
 import org.cc2.domain.*;
+import org.cc2.kernel.Command;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public final class ProviderCreateProject {
+public final class ProviderCreateProject implements Command {
     public final ProviderId adminId;
     public final String name;
     public final ArrayList<WorkmanSkills> requiredSkills;
