@@ -4,14 +4,13 @@ package org.cc2;
 import org.cc2.application.assign_workman_to_project.AssignWorkmanToProjectCommandHandler;
 import org.cc2.application.create_project_by_provider.ProviderCreateProjectCommandHandler;
 import org.cc2.application.create_provider.CreateProviderCommandHandler;
+import org.cc2.application.create_subscription.CreateSubscriptionCommandHandler;
 import org.cc2.application.create_workman.CreateWorkmanCommandHandler;
 import org.cc2.domain.ProjectRepository;
 import org.cc2.domain.ProviderRepository;
+import org.cc2.domain.SubscriptionRepository;
 import org.cc2.domain.WorkmanRepository;
-import org.cc2.infrastructure.DefaultEventDispatcher;
-import org.cc2.infrastructure.InMemoryProjectRepository;
-import org.cc2.infrastructure.InMemoryProviderRepository;
-import org.cc2.infrastructure.InMemoryWorkmanRepository;
+import org.cc2.infrastructure.*;
 import org.cc2.kernel.Event;
 import org.cc2.kernel.EventDispatcher;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +40,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public SubscriptionRepository subscriptionRepository() {
+        return new InMemorySubscriptionRepository();
+    }
+
+    @Bean
     public ProviderCreateProjectCommandHandler providerCreateProjectCommandHandler() {
         return new ProviderCreateProjectCommandHandler(projectRepository(), eventEventDispatcher());
     }
@@ -58,5 +62,10 @@ public class ApplicationConfiguration {
     @Bean
     public AssignWorkmanToProjectCommandHandler assignWorkmanToProjectCommandHandler(){
         return new AssignWorkmanToProjectCommandHandler(providerRepository(),workmanRepository(),projectRepository(),eventEventDispatcher());
+    }
+
+    @Bean
+    public CreateSubscriptionCommandHandler createSubscriptionCommandHandler(){
+        return new CreateSubscriptionCommandHandler(subscriptionRepository(),eventEventDispatcher());
     }
 }

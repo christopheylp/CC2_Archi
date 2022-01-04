@@ -6,12 +6,11 @@ import org.cc2.application.create_project_by_provider.ProviderCreateProject;
 import org.cc2.application.create_project_by_provider.ProviderCreateProjectCommandHandler;
 import org.cc2.application.create_provider.CreateProvider;
 import org.cc2.application.create_provider.CreateProviderCommandHandler;
+import org.cc2.application.create_subscription.CreateSubscription;
+import org.cc2.application.create_subscription.CreateSubscriptionCommandHandler;
 import org.cc2.application.create_workman.CreateWorkman;
 import org.cc2.application.create_workman.CreateWorkmanCommandHandler;
-import org.cc2.domain.ProjectId;
-import org.cc2.domain.ProviderId;
-import org.cc2.domain.WorkmanId;
-import org.cc2.domain.WorkmanSkills;
+import org.cc2.domain.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -34,6 +33,10 @@ public class App
         CreateProvider createProvider = new CreateProvider("Christophe");
         final ProviderId providerId = providerCommandHandler.handle(createProvider);
 
+        CreateSubscriptionCommandHandler subscriptionCommandHandler = applicationContext.getBean(CreateSubscriptionCommandHandler.class);
+        CreateSubscription createSubscription = new CreateSubscription(providerId,10,10);
+        final SubscriptionId subscriptionId = subscriptionCommandHandler.handle(createSubscription);
+
         ProviderCreateProjectCommandHandler providerCreateProjectCommandHandler = applicationContext.getBean(ProviderCreateProjectCommandHandler.class);
         ArrayList<WorkmanSkills> skills = new ArrayList<>();
         skills.add(WorkmanSkills.ELECTRICIAN);
@@ -47,6 +50,7 @@ public class App
         AssignWorkmanToProjectCommandHandler assignWorkmanToProjectCommandHandler = applicationContext.getBean(AssignWorkmanToProjectCommandHandler.class);
         AssignWorkmanToProject assignWorkmanToProject = new AssignWorkmanToProject(providerId,workmanId,projectId);
         final ProjectId assignedProjectId = assignWorkmanToProjectCommandHandler.handle(assignWorkmanToProject);
+
 
     }
 }
