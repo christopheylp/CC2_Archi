@@ -1,4 +1,4 @@
-package org.cc2.application;
+package org.cc2.application.create_project_by_provider;
 
 import org.cc2.domain.*;
 import org.cc2.kernel.Command;

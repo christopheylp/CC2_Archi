@@ -11,7 +11,8 @@ public final class Project {
     private final ArrayList<WorkmanSkills> requiredSkills;
     private final Date deadline;
     private final String location;
-    private final ArrayList<WorkmanId> workmanAssigned ;
+
+    private ArrayList<WorkmanId> workmanAssigned ;
 
     public Project(ProjectId id, ProviderId adminId, String name, ArrayList<WorkmanSkills> requiredSkills, Date deadline, String location, ArrayList<WorkmanId> workmanAssigned) {
         this.id = Objects.requireNonNull(id);
@@ -33,5 +34,13 @@ public final class Project {
 
     public String getName() {
         return this.name;
+    }
+
+    public ArrayList<WorkmanId> getWorkmanAssigned() {
+        return workmanAssigned;
+    }
+
+    public void addWorkmanAssigned(WorkmanId workmanId) {
+        this.workmanAssigned.add(workmanId);
     }
 }

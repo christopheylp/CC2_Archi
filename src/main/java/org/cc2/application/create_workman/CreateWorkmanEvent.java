@@ -1,10 +1,9 @@
-package org.cc2.application.workman;
+package org.cc2.application.create_workman;
 
-import org.cc2.domain.ProviderId;
 import org.cc2.domain.WorkmanId;
 import org.cc2.kernel.ApplicationEvent;
 
-public class CreateWorkmanEvent implements ApplicationEvent {
+public final class CreateWorkmanEvent implements ApplicationEvent {
     private final WorkmanId workmanId;
 
     public CreateWorkmanEvent(WorkmanId workmanId) {

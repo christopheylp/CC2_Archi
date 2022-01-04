@@ -1,13 +1,11 @@
-package org.cc2.application.workman;
+package org.cc2.application.create_workman;
 
-import org.cc2.application.provider.CreateProvider;
-import org.cc2.application.provider.CreateProviderEvent;
 import org.cc2.domain.*;
 import org.cc2.kernel.CommandHandler;
 import org.cc2.kernel.Event;
 import org.cc2.kernel.EventDispatcher;
 
-public class CreateWorkmanCommandHandler implements CommandHandler<CreateWorkman, WorkmanId> {
+public final class CreateWorkmanCommandHandler implements CommandHandler<CreateWorkman, WorkmanId> {
     private final WorkmanRepository workmanRepository;
     private final EventDispatcher<Event> eventEventDispatcher;
 
@@ -16,6 +14,7 @@ public class CreateWorkmanCommandHandler implements CommandHandler<CreateWorkman
         this.eventEventDispatcher = eventEventDispatcher;
     }
 
+    @Override
     public WorkmanId handle(CreateWorkman createWorkman) {
         final WorkmanId workmanId = workmanRepository.nextIdentity();
         Workman workman = new Workman(workmanId, createWorkman.name, createWorkman.skills, createWorkman.location, createWorkman.dailyPrice);

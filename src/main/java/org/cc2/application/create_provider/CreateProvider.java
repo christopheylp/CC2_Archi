@@ -1,12 +1,10 @@
-package org.cc2.application.provider;
+package org.cc2.application.create_provider;
 
-import org.cc2.domain.Provider;
-import org.cc2.domain.ProviderId;
 import org.cc2.kernel.Command;
 
 import java.util.Objects;
 
-public class CreateProvider implements Command {
+public final class CreateProvider implements Command {
     public final String name;
 
     public CreateProvider(String name) {
