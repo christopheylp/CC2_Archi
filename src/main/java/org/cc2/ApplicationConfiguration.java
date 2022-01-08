@@ -6,6 +6,9 @@ import org.cc2.application.create_project_by_provider.ProviderCreateProjectComma
 import org.cc2.application.create_provider.CreateProviderCommandHandler;
 import org.cc2.application.create_subscription.CreateSubscriptionCommandHandler;
 import org.cc2.application.create_workman.CreateWorkmanCommandHandler;
+import org.cc2.application.retrieve_projects.RetrieveProjectHandler;
+import org.cc2.application.retrieve_providers.RetrieveProviderHandler;
+import org.cc2.application.retrieve_workmans.RetrieveWorkmanHandler;
 import org.cc2.domain.ProjectRepository;
 import org.cc2.domain.ProviderRepository;
 import org.cc2.domain.SubscriptionRepository;
@@ -68,4 +71,17 @@ public class ApplicationConfiguration {
     public CreateSubscriptionCommandHandler createSubscriptionCommandHandler(){
         return new CreateSubscriptionCommandHandler(subscriptionRepository(),eventEventDispatcher());
     }
+
+    @Bean
+    public RetrieveProjectHandler retrieveProjectHandler() {
+        return new RetrieveProjectHandler(projectRepository());
+    }
+
+    @Bean
+    public RetrieveWorkmanHandler retrieveWorkmanHandler() {
+        return new RetrieveWorkmanHandler(workmanRepository());
+    }
+
+    @Bean
+    public RetrieveProviderHandler retrieveProviderHandler() { return new RetrieveProviderHandler(providerRepository()); }
 }
