@@ -1,7 +1,7 @@
 package org.cc2.infrastructure;
 
 import org.cc2.domain.*;
-import org.cc2.kernel.NoSuchEntityException;
+import org.cc2.kernel.exception.NoSuchEntityException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

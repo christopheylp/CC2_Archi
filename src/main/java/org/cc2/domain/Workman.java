@@ -19,7 +19,7 @@ public final class Workman {
         this.dailyPrice = dailyPrice;
     }
 
-    public static Workman of(WorkmanId id, String name, ArrayList<WorkmanSkills> skills, String location, float dailyPrice){
+    public static Workman of(WorkmanId id, String name, ArrayList<WorkmanSkills> skills, String location, float dailyPrice) {
         return new Workman(id, name, skills, location, dailyPrice);
     }
 
@@ -29,5 +29,17 @@ public final class Workman {
 
     public String getName() {
         return this.name;
+    }
+
+    public ArrayList<WorkmanSkills> getSkills() {
+        return this.skills;
+    }
+
+    public float getDailyPrice() {
+        return this.dailyPrice;
+    }
+
+    public String getLocation() {
+        return this.location;
     }
 }

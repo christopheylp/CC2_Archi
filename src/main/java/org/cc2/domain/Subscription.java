@@ -2,20 +2,37 @@ package org.cc2.domain;
 
 import org.cc2.kernel.ValueObjectId;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public final class Subscription {
     private final SubscriptionId id;
-    private final ValueObjectId userID;
+    private final ValueObjectId userId;
+    private final Date startingDate;
     private final int duration;
     private final float monthlyPrice;
 
-    public Subscription(SubscriptionId id, ValueObjectId userID, int duration, float monthlyPrice) {
+    public Subscription(SubscriptionId id, ValueObjectId userId, Date startingDate, int duration, float monthlyPrice) {
         this.id = id;
-        this.userID = userID;
+        this.userId = userId;
+        this.startingDate = startingDate;
         this.duration = duration;
         this.monthlyPrice = monthlyPrice;
     }
 
     public SubscriptionId getId() {
         return this.id;
+    }
+
+    public ValueObjectId getUserId() {
+        return this.userId;
+    }
+
+    public boolean isValid(){
+        Date now = new Date();
+        Calendar calendar =  Calendar.getInstance();
+        calendar.setTime(this.startingDate);
+        calendar.add(Calendar.MONTH, this.duration);
+        return !now.before(calendar.getTime()) || !now.after(this.startingDate);
     }
 }

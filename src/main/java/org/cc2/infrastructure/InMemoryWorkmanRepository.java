@@ -3,7 +3,7 @@ package org.cc2.infrastructure;
 import org.cc2.domain.Workman;
 import org.cc2.domain.WorkmanId;
 import org.cc2.domain.WorkmanRepository;
-import org.cc2.kernel.NoSuchEntityException;
+import org.cc2.kernel.exception.NoSuchEntityException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

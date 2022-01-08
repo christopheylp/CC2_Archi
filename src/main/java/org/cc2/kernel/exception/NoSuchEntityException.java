@@ -1,4 +1,6 @@
-package org.cc2.kernel;
+package org.cc2.kernel.exception;
+
+import org.cc2.kernel.ValueObjectId;
 
 public final class NoSuchEntityException extends RuntimeException {
 

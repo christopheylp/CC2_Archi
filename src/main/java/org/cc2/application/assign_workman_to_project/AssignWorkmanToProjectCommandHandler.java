@@ -1,37 +1,94 @@
 package org.cc2.application.assign_workman_to_project;
 
-import org.cc2.application.create_project_by_provider.ProviderCreateProjectEvent;
 import org.cc2.domain.*;
 import org.cc2.kernel.CommandHandler;
 import org.cc2.kernel.Event;
 import org.cc2.kernel.EventDispatcher;
+import org.cc2.kernel.exception.LocationsNotMatchException;
+import org.cc2.kernel.exception.NoSubscriptionException;
+import org.cc2.kernel.exception.PricesNotMatchException;
+import org.cc2.kernel.exception.SkillsNotMatchException;
+
+import java.util.ArrayList;
 
 public final class AssignWorkmanToProjectCommandHandler implements CommandHandler<AssignWorkmanToProject, ProjectId> {
     private final ProviderRepository providerRepository;
     private final WorkmanRepository workmanRepository;
     private final ProjectRepository projectRepository;
+    private final SubscriptionRepository subscriptionRepository;
     private final EventDispatcher<Event> eventEventDispatcher;
 
-    public AssignWorkmanToProjectCommandHandler(ProviderRepository providerRepository, WorkmanRepository workmanRepository, ProjectRepository projectRepository, EventDispatcher<Event> eventEventDispatcher) {
+    public AssignWorkmanToProjectCommandHandler(ProviderRepository providerRepository, WorkmanRepository workmanRepository, ProjectRepository projectRepository, SubscriptionRepository subscriptionRepository, EventDispatcher<Event> eventEventDispatcher) {
         this.providerRepository = providerRepository;
         this.workmanRepository = workmanRepository;
         this.projectRepository = projectRepository;
+        this.subscriptionRepository = subscriptionRepository;
         this.eventEventDispatcher = eventEventDispatcher;
     }
 
     public boolean verifySubscription(ProviderId providerId, WorkmanId workmanId) {
-        //TODO
+        ArrayList<Subscription> providerSubscriptions = this.subscriptionRepository.findByUserId(providerId);
+        ArrayList<Subscription> workmanSubscriptions = this.subscriptionRepository.findByUserId(workmanId);
+        if (providerSubscriptions.size() <= 0) {
+            throw new NoSubscriptionException("Provider not have available subscription!");
+        }
+        if (workmanSubscriptions.size() <= 0) {
+            throw new NoSubscriptionException("Workman not have available subscription!");
+        }
+        for (Subscription providerSubscription : providerSubscriptions) {
+            if(providerSubscription.isValid()){
+                throw new NoSubscriptionException("Provider not have available subscription!");
+            }
+        }
+        for (Subscription workmanSubscription : workmanSubscriptions) {
+            if(workmanSubscription.isValid()){
+                throw new NoSubscriptionException("Workman not have available subscription!");
+            }
+        }
         return true;
     }
 
     public boolean verifySkills(ProjectId projectId, WorkmanId workmanId) {
-        //TODO
+        ArrayList<WorkmanSkills> workmanSkills = workmanRepository.findById(workmanId).getSkills();
+        ArrayList<WorkmanSkills> requiredSkills = projectRepository.findById(projectId).getRequiredSkills();
+        for (WorkmanSkills workmanSkill : workmanSkills) {
+            boolean hasSkill = false;
+            for (WorkmanSkills requiredSkill : requiredSkills) {
+                if (workmanSkill == requiredSkill) {
+                    hasSkill = true;
+                    break;
+                }
+            }
+            if (!hasSkill) throw new SkillsNotMatchException("Skills of workman and required do not match!");
+        }
         return true;
+    }
+
+    public boolean verifyPrices(ProjectId projectId, WorkmanId workmanId) {
+        float workmanDailyPrice = workmanRepository.findById(workmanId).getDailyPrice();
+        float projectDailyPrice = projectRepository.findById(projectId).getDailyPrice();
+        if (workmanDailyPrice >= projectDailyPrice) {
+            throw new PricesNotMatchException("Daily prices of workman and project not match!");
+        }
+        return true;
+    }
+
+    public boolean verifyLocations(ProjectId projectId, WorkmanId workmanId) {
+        String workmanLocation = workmanRepository.findById(workmanId).getLocation();
+        String projectLocation = projectRepository.findById(projectId).getLocation();
+        if (!workmanLocation.equals(projectLocation)) {
+            throw new LocationsNotMatchException("Locations of workman and project not match!");
+        }
+        return true;
+    }
+
+    public boolean verifyBeforeAssign(ProviderId providerId, WorkmanId workmanId, ProjectId projectId) {
+        return verifySubscription(providerId, workmanId) && verifySkills(projectId, workmanId) && verifyPrices(projectId, workmanId) && verifyPrices(projectId, workmanId) && verifyLocations(projectId, workmanId);
     }
 
     @Override
     public ProjectId handle(AssignWorkmanToProject assignWorkmanToProject) {
-        if (verifySubscription(assignWorkmanToProject.providerId, assignWorkmanToProject.workmanId) && verifySkills(assignWorkmanToProject.projectId, assignWorkmanToProject.workmanId)) {
+        if (verifyBeforeAssign(assignWorkmanToProject.providerId, assignWorkmanToProject.workmanId, assignWorkmanToProject.projectId)) {
             Project project = projectRepository.findById(assignWorkmanToProject.projectId);
             project.addWorkmanAssigned(assignWorkmanToProject.workmanId);
             this.projectRepository.add(project);
@@ -39,7 +96,7 @@ public final class AssignWorkmanToProjectCommandHandler implements CommandHandle
 
             return assignWorkmanToProject.projectId;
         } else {
-            throw new RuntimeException(); //TODO faire une exception specifique
+            throw new RuntimeException("The verifications for assign workman to project not passed!");
         }
     }
 }

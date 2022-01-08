@@ -1,5 +1,7 @@
 package org.cc2.kernel;
 
+import org.cc2.kernel.exception.NoSuchEntityException;
+
 public interface Repository<VOID, E> {
     VOID nextIdentity();
 

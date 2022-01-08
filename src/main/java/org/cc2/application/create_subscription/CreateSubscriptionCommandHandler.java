@@ -1,7 +1,5 @@
 package org.cc2.application.create_subscription;
 
-import org.cc2.application.create_provider.CreateProvider;
-import org.cc2.application.create_provider.CreateProviderEvent;
 import org.cc2.domain.*;
 import org.cc2.kernel.CommandHandler;
 import org.cc2.kernel.Event;
@@ -19,7 +17,7 @@ public final class CreateSubscriptionCommandHandler implements CommandHandler<Cr
     @Override
     public SubscriptionId handle(CreateSubscription createSubscription) {
         final SubscriptionId subscriptionId = subscriptionRepository.nextIdentity();
-        Subscription subscription = new Subscription(subscriptionId, createSubscription.userID, createSubscription.duration, createSubscription.monthlyPrice);
+        Subscription subscription = new Subscription(subscriptionId, createSubscription.userID, createSubscription.startingDate, createSubscription.duration, createSubscription.monthlyPrice);
         subscriptionRepository.add(subscription);
         eventEventDispatcher.dispatch(new CreateSubscriptionEvent(subscriptionId));
         return subscriptionId;

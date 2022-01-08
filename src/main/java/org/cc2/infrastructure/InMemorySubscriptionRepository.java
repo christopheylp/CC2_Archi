@@ -1,9 +1,10 @@
 package org.cc2.infrastructure;
 
 import org.cc2.domain.*;
-import org.cc2.kernel.NoSuchEntityException;
+import org.cc2.kernel.exception.NoSuchEntityException;
 import org.cc2.kernel.ValueObjectId;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +19,17 @@ public class InMemorySubscriptionRepository implements SubscriptionRepository {
     }
 
     @Override
+    public ArrayList<Subscription> findByUserId(ValueObjectId userId) {
+        ArrayList<Subscription> subscriptions = new ArrayList<>();
+        for (Subscription subscription : data.values()) {
+            if(subscription.getUserId().equals(userId)){
+                subscriptions.add(subscription);
+            }
+        }
+        return subscriptions;
+    }
+
+    @Override
     public SubscriptionId nextIdentity() {
         return new SubscriptionId(count.incrementAndGet());
     }
@@ -29,7 +41,8 @@ public class InMemorySubscriptionRepository implements SubscriptionRepository {
             assert false;
             throw new RuntimeException("No provider for " + subscription);
         }
-        return subscription;    }
+        return subscription;
+    }
 
     @Override
     public void add(Subscription entity) {

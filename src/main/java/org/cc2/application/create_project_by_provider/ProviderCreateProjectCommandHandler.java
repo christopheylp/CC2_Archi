@@ -20,7 +20,7 @@ public final class ProviderCreateProjectCommandHandler implements CommandHandler
     @Override
     public ProjectId handle(ProviderCreateProject providerCreateProject) {
         final ProjectId projectId = projectRepository.nextIdentity();
-        Project project = new Project(projectId, providerCreateProject.adminId, providerCreateProject.name, providerCreateProject.requiredSkills, providerCreateProject.deadline, providerCreateProject.location, providerCreateProject.workmanAssigned);
+        Project project = new Project(projectId, providerCreateProject.adminId, providerCreateProject.name, providerCreateProject.requiredSkills, providerCreateProject.dailyPrice, providerCreateProject.deadline, providerCreateProject.location, providerCreateProject.workmanAssigned);
         projectRepository.add(project);
         eventEventDispatcher.dispatch(new ProviderCreateProjectEvent(projectId));
         return projectId;

@@ -61,7 +61,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public AssignWorkmanToProjectCommandHandler assignWorkmanToProjectCommandHandler(){
-        return new AssignWorkmanToProjectCommandHandler(providerRepository(),workmanRepository(),projectRepository(),eventEventDispatcher());
+        return new AssignWorkmanToProjectCommandHandler(providerRepository(),workmanRepository(),projectRepository(), subscriptionRepository(), eventEventDispatcher());
     }
 
     @Bean
