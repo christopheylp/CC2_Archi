@@ -6,7 +6,7 @@ import org.cc2.kernel.QueryHandler;
 
 import java.util.Map;
 
-public class RetrieveWorkmanHandler implements QueryHandler<RetrieveWorkman, Map<WorkmanId, Workman>> {
+public final class RetrieveWorkmanHandler implements QueryHandler<RetrieveWorkman, Map<WorkmanId, Workman>> {
 
     private final WorkmanRepository workmanRepository;
 

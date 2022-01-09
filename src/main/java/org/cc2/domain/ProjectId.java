@@ -4,7 +4,7 @@ import org.cc2.kernel.ValueObjectId;
 
 import java.util.Objects;
 
-public class ProjectId implements ValueObjectId {
+public final class ProjectId implements ValueObjectId {
     private final int value;
 
     public ProjectId(int value) {

@@ -1,6 +1,6 @@
 package org.cc2.kernel.exception;
 
-public class SkillsNotMatchException extends RuntimeException {
+public final class SkillsNotMatchException extends RuntimeException {
 
     public SkillsNotMatchException(String message) {
         super(message);

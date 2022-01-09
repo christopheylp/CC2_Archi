@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class WorkmanController {
+public final class WorkmanController {
     private final RetrieveWorkmanHandler retrieveWorkmanHandler;
 
     @Autowired

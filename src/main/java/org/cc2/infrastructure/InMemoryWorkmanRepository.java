@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class InMemoryWorkmanRepository  implements WorkmanRepository {
+public final class InMemoryWorkmanRepository  implements WorkmanRepository {
     private final Map<WorkmanId, Workman> data = new ConcurrentHashMap<>();
     private final AtomicInteger count = new AtomicInteger(0);
 

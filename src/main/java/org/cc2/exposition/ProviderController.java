@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ProviderController {
+public final class ProviderController {
     private final RetrieveProviderHandler retrieveProviderHandler;
 
     @Autowired

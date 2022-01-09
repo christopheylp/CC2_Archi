@@ -5,7 +5,7 @@ import org.cc2.kernel.QueryHandler;
 
 import java.util.Map;
 
-public class RetrieveProviderHandler implements QueryHandler<RetrieveProvider, Map<ProviderId, Provider>> {
+public final class RetrieveProviderHandler implements QueryHandler<RetrieveProvider, Map<ProviderId, Provider>> {
 
     private final ProviderRepository providerRepository;
 

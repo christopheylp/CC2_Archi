@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class InMemorySubscriptionRepository implements SubscriptionRepository {
+public final class InMemorySubscriptionRepository implements SubscriptionRepository {
     private final Map<SubscriptionId, Subscription> data = new ConcurrentHashMap<>();
     private final AtomicInteger count = new AtomicInteger(0);
 

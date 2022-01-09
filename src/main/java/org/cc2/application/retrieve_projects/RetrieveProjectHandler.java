@@ -7,7 +7,7 @@ import org.cc2.kernel.QueryHandler;
 
 import java.util.Map;
 
-public class RetrieveProjectHandler implements QueryHandler<RetrieveProject, Map<ProjectId,Project>> {
+public final class RetrieveProjectHandler implements QueryHandler<RetrieveProject, Map<ProjectId,Project>> {
 
     private final ProjectRepository projectRepository;
 
